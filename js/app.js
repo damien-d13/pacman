@@ -1,8 +1,7 @@
 console.log("This is PACMAN");
 var pacman = document.getElementById("pacman");
 
-//19/22
-
+// Table tiles map size 19/22
 var imgArray = new Array();
 
     imgArray = [
@@ -29,13 +28,19 @@ var imgArray = new Array();
     [0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 ];
-
+// Initila information of pacman
+var pacman = {
+    x : 1,
+    y : 1,
+    direction : 0
+};
         
         console.log(imgArray);
 
+// Execute the code when the page is already load.
 window.addEventListener("load", (event) => {
 
-    
+    // Add image to Array cell    
     for (let i = 0; i < imgArray.length; i++) {
         for (let j = 0; j < imgArray[i].length; j++) {
             if (imgArray[i][j] === 0) {
@@ -56,6 +61,7 @@ window.addEventListener("load", (event) => {
         }
         
     }
+
 console.log(imgArray);
    
 });
