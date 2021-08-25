@@ -41,6 +41,8 @@ let pacmanPosition = {
     direction: 3
 };
 var score = 0;
+var candyScore = 0;
+var nbCandy = 0;
 
 console.log(imgArray);
 
@@ -76,6 +78,7 @@ window.addEventListener("load", (event) => {
         }
     };
     displayTray();
+    calculCandy();
     //Event Keyboard
     document.body.addEventListener("keydown", keyPackman);
 
@@ -90,7 +93,7 @@ window.addEventListener("load", (event) => {
         
         // console.log(pacmanPosition.x + " /" + pacmanPosition.y);
     };
-setInterval(gameSequence, 500);
+var intervalGame = setInterval(gameSequence, 500);
 
     //Function for add pacman on the tray
     function displayPacman() {
@@ -172,15 +175,32 @@ setInterval(gameSequence, 500);
         if (imgArray[pacmanPosition.x][pacmanPosition.y].className == 2 ) {
             imgArray[pacmanPosition.x][pacmanPosition.y].src = "img/sol.gif";
             imgArray[pacmanPosition.x][pacmanPosition.y].classList.add("1");
-            score++;
+            candyScore++;
         }
     };
 
     function displayScore() {
-        pSCore.innerHTML = "Votre est de : " + score;
+        pSCore.innerHTML = "Votre score est de : " + candyScore;
         divScore.appendChild(pSCore);
+        if(candyScore == nbCandy){
+            clearInterval(intervalGame);
+            alert("Vous avez gagné");
+        }
     }
 
-    // function calculCandy
+    function calculCandy(){
+        for (let i = 0; i < imgArray.length; i++) {
+            for (let j = 0; j < imgArray[i].length; j++) {
+                if (imgArray[i][j].className == 2) {
+                    nbCandy++;
+                    console.log(nbCandy);
+
+                }
+                
+                
+            }
+            
+        }
+    }
     
 });
