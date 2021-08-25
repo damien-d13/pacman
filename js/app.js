@@ -81,28 +81,27 @@ window.addEventListener("load", (event) => {
     calculCandy();
     //Event Keyboard
     document.body.addEventListener("keydown", keyPackman);
-
+    //Call function  
     function gameSequence() {
-        
+
         movePacman();
         wallCollision();
         eatCandy();
         displayScore();
-        displayPacman(); 
-   
-        
-        // console.log(pacmanPosition.x + " /" + pacmanPosition.y);
+        displayPacman();
+
     };
-var intervalGame = setInterval(gameSequence, 500);
+    //Add the interval for initiate the pacman postion and changing element
+    var intervalGame = setInterval(gameSequence, 500);
 
     //Function for add pacman on the tray
     function displayPacman() {
         pacmanImage.style.gridArea = (pacmanPosition.x + 1) + " / " + (pacmanPosition.y + 1);
         pacmanGame.appendChild(pacmanImage);
-        
-    };
 
-    function movePacman(){
+    };
+    //make pacman move automaticly to the direction
+    function movePacman() {
         switch (pacmanPosition.direction) {
             case 1:
                 pacmanPosition.x++;
@@ -116,13 +115,13 @@ var intervalGame = setInterval(gameSequence, 500);
             case 4:
                 pacmanPosition.y--;
                 break;
-        
+
             default:
                 break;
         };
     };
-
-    function keyPackman(key){
+    //add keyboard keys 
+    function keyPackman(key) {
         // alert(key.code);
         switch (key.code) {
             case "ArrowUp":
@@ -137,17 +136,17 @@ var intervalGame = setInterval(gameSequence, 500);
             case "ArrowRight":
                 pacmanPosition.direction = 3;
                 break;
-        
+
             default:
                 break;
         }
     }
     //Test the next tiles for move 
-    function wallCollision(){
+    function wallCollision() {
 
-        if ( pacmanPosition.x >= imgArray.length || 
-             pacmanPosition.y >= imgArray[pacmanPosition.x].length ||
-             pacmanPosition.x < 0 || pacmanPosition.y < 0 || imgArray[pacmanPosition.x][pacmanPosition.y].className == 0) {
+        if (pacmanPosition.x >= imgArray.length ||
+            pacmanPosition.y >= imgArray[pacmanPosition.x].length ||
+            pacmanPosition.x < 0 || pacmanPosition.y < 0 || imgArray[pacmanPosition.x][pacmanPosition.y].className == 0) {
             //On wall
             switch (pacmanPosition.direction) {
                 case 1:
@@ -162,45 +161,40 @@ var intervalGame = setInterval(gameSequence, 500);
                 case 4:
                     pacmanPosition.y++;
                     break;
-            
+
                 default:
                     break;
             };
-        
-        }else{/**console.log(imgArray[pacmanPosition.x][pacmanPosition.y]);*/};
+
+        } else {/**console.log(imgArray[pacmanPosition.x][pacmanPosition.y]);*/ };
 
     };
-    
+    //Delete candy when pacman is on it
     function eatCandy() {
-        if (imgArray[pacmanPosition.x][pacmanPosition.y].className == 2 ) {
+        if (imgArray[pacmanPosition.x][pacmanPosition.y].className == 2) {
             imgArray[pacmanPosition.x][pacmanPosition.y].src = "img/sol.gif";
             imgArray[pacmanPosition.x][pacmanPosition.y].classList.add("1");
             candyScore++;
         }
     };
-
+    // display the score on the html document
     function displayScore() {
         pSCore.innerHTML = "Votre score est de : " + candyScore;
         divScore.appendChild(pSCore);
-        if(candyScore == nbCandy){
+        if (candyScore == nbCandy) {
             clearInterval(intervalGame);
             alert("Vous avez gagné");
         }
     }
-
-    function calculCandy(){
+    //Calcul number of candy at the start 
+    function calculCandy() {
         for (let i = 0; i < imgArray.length; i++) {
             for (let j = 0; j < imgArray[i].length; j++) {
                 if (imgArray[i][j].className == 2) {
                     nbCandy++;
                     console.log(nbCandy);
-
                 }
-                
-                
             }
-            
         }
     }
-    
 });
