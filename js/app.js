@@ -19,6 +19,10 @@ ghostArray = [ghostImage1, ghostImage2, ghostImage3, ghostImage4];
 var divScore = document.getElementById("score");
 var pSCore = document.createElement("p");
 
+var btnRestart = document.createElement("button");
+btnRestart.innerHTML = "Restart";
+divScore.appendChild(btnRestart);
+
 // Table tiles map size 19/22
 var imgArray = new Array();
 
@@ -46,6 +50,8 @@ imgArray = [
     [0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 ];
+//Clone array
+var imgArrayClone = [...imgArray];
 // Initialise information of pacman
 let pacmanPosition = {
     x: 10,
@@ -120,9 +126,11 @@ window.addEventListener("load", (event) => {
     function gameSequence() {
 
         movePacman();
-        moveGhost();
-        ghostWallCollision();
         wallCollision();
+        pacmanEatByGhost();
+        moveGhost();
+        pacmanEatByGhost();
+        ghostWallCollision();
         eatCandy();
         displayScore();
         displayPacman();
@@ -130,7 +138,7 @@ window.addEventListener("load", (event) => {
 
     };
     //Add the interval for initiate the pacman postion and changing element
-    var intervalGame = setInterval(gameSequence, 500);
+    var intervalGame = setInterval(gameSequence, 200);
 
     //Function for add pacman on the tray
     function displayPacman() {
@@ -298,4 +306,15 @@ window.addEventListener("load", (event) => {
 
         };
     };
+    //Test collision to pacman and ghost
+    function pacmanEatByGhost() {
+        for (let i = 0; i < 4; i++) {
+            if (ghostPosition[i].x == pacmanPosition.x && ghostPosition[i].y == pacmanPosition.y) {
+                clearInterval(intervalGame);
+                alert("Vous avez perdu");
+            }
+        }
+    };
+    //Button restart game
+
 });
