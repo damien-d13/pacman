@@ -24,9 +24,10 @@ btnRestart.innerHTML = "Restart";
 divScore.appendChild(btnRestart);
 
 // Table tiles map size 19/22
+var originalArray = new Array;
 var imgArray = new Array();
 
-imgArray = [
+originalArray = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 2, 2, 2, 2, 2, 2, 2, 2, 0, 2, 2, 2, 2, 2, 2, 2, 2, 0],
     [0, 2, 0, 0, 2, 0, 0, 0, 2, 0, 2, 0, 0, 0, 2, 0, 0, 2, 0],
@@ -51,7 +52,17 @@ imgArray = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 ];
 //Clone array
-var imgArrayClone = [...imgArray];
+// var imgArrayClone = new Array;
+function initilisation() {
+    imgArray = new Array;
+    for (const i in originalArray) {
+        imgArray.push([...originalArray[i]]);
+    }
+ };
+initilisation();
+//     console.log("clone : " + imgArrayClone)
+
+
 // Initialise information of pacman
 let pacmanPosition = {
     x: 10,
@@ -86,6 +97,7 @@ var candyScore = 0;
 var nbCandy = 0;
 
 console.log(imgArray);
+console.log(originalArray);
 
 // Execute the code when the page is already load.
 window.addEventListener("load", (event) => {
@@ -93,19 +105,19 @@ window.addEventListener("load", (event) => {
         // Add image to Array cell    
         for (let i = 0; i < imgArray.length; i++) {
             for (let j = 0; j < imgArray[i].length; j++) {
-                if (imgArray[i][j] === 0) {
+                if (originalArray[i][j] === 0) {
                     imgArray[i][j] = new Image();
                     imgArray[i][j].style.gridArea = (i + 1) + " / " + (j + 1);
                     imgArray[i][j].src = "img/mur.gif";
                     imgArray[i][j].classList.add("0");
                     pacmanGame.appendChild(imgArray[i][j]);
-                } else if (imgArray[i][j] === 1) {
+                } else if (originalArray[i][j] === 1) {
                     imgArray[i][j] = new Image();
                     imgArray[i][j].style.gridArea = (i + 1) + " / " + (j + 1);
                     imgArray[i][j].src = "img/sol.gif";
                     imgArray[i][j].classList.add("1");
                     pacmanGame.appendChild(imgArray[i][j]);
-                } else if (imgArray[i][j] === 2) {
+                } else if (originalArray[i][j] === 2) {
                     imgArray[i][j] = new Image();
                     imgArray[i][j].style.gridArea = (i + 1) + " / " + (j + 1);
                     imgArray[i][j].src = "img/bonbon.gif";
@@ -120,6 +132,11 @@ window.addEventListener("load", (event) => {
     };
     displayTray();
     calculCandy();
+    //Button restart game
+btnRestart.addEventListener("click", () => {
+    initilisation();
+    displayTray();
+});
     //Event Keyboard
     document.body.addEventListener("keydown", keyPackman);
     //Call function  
@@ -315,6 +332,5 @@ window.addEventListener("load", (event) => {
             }
         }
     };
-    //Button restart game
-
+    
 });
