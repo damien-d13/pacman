@@ -2,7 +2,19 @@ console.log("This is PACMAN");
 var pacmanGame = document.getElementById("pacman");
 
 var pacmanImage = new Image();
-pacmanImage.src = "img/pacman4.gif"
+pacmanImage.src = "img/pacman4.gif";
+
+var ghostImage1 = new Image();
+ghostImage1.src = "img/fantome_bleu1.gif";
+var ghostImage2 = new Image();
+ghostImage2.src = "img/fantome_rouge1.gif";
+var ghostImage3 = new Image();
+ghostImage3.src = "img/fantome_vert1.gif";
+var ghostImage4 = new Image();
+ghostImage4.src = "img/fantome_orange1.gif";
+
+var ghostArray = new Array;
+ghostArray = [ghostImage1, ghostImage2, ghostImage3, ghostImage4];
 
 var divScore = document.getElementById("score");
 var pSCore = document.createElement("p");
@@ -40,6 +52,29 @@ let pacmanPosition = {
     y: -1,
     direction: 3
 };
+//initialise information of ghost
+let ghostPosition = [
+    {
+        x: 10,
+        y: 9,
+        direction: 1
+    },
+    {
+        x: 10,
+        y: 9,
+        direction: 2
+    },
+    {
+        x: 10,
+        y: 9,
+        direction: 1
+    },
+    {
+        x: 10,
+        y: 9,
+        direction: 2
+    }
+];
 var score = 0;
 var candyScore = 0;
 var nbCandy = 0;
@@ -85,10 +120,13 @@ window.addEventListener("load", (event) => {
     function gameSequence() {
 
         movePacman();
+        moveGhost();
+        ghostWallCollision();
         wallCollision();
         eatCandy();
         displayScore();
         displayPacman();
+        displayGhost()
 
     };
     //Add the interval for initiate the pacman postion and changing element
@@ -166,7 +204,7 @@ window.addEventListener("load", (event) => {
                     break;
             };
 
-        } else {/**console.log(imgArray[pacmanPosition.x][pacmanPosition.y]);*/ };
+        };
 
     };
     //Delete candy when pacman is on it
@@ -192,9 +230,72 @@ window.addEventListener("load", (event) => {
             for (let j = 0; j < imgArray[i].length; j++) {
                 if (imgArray[i][j].className == 2) {
                     nbCandy++;
-                    console.log(nbCandy);
                 }
             }
         }
     }
+    function displayGhost() {
+        for (let i = 0; i < 4; i++) {
+
+            ghostArray[i].style.gridArea = (ghostPosition[i].x + 1) + " / " + (ghostPosition[i].y + 1);
+            pacmanGame.appendChild(ghostArray[i]);
+
+        }
+    }
+    //Make ghost move alone
+    function moveGhost() {
+
+        for (let i = 0; i < ghostPosition.length; i++) {
+
+            switch (ghostPosition[i].direction) {
+                case 1:
+                    ghostPosition[i].x++;
+                    break;
+                case 2:
+                    ghostPosition[i].x--;
+                    break;
+                case 3:
+                    ghostPosition[i].y++;
+                    break;
+                case 4:
+                    ghostPosition[i].y--;
+                    break;
+
+                default:
+                    break;
+            };
+        }
+    }
+    // Ghost wall collision 
+    function ghostWallCollision() {
+
+        for (let i = 0; i < 4; i++) {
+
+            if (ghostPosition[i].x >= imgArray.length ||
+                ghostPosition[i].y >= imgArray[ghostPosition[i].x].length ||
+                ghostPosition[i].x < 0 || ghostPosition[i].y < 0 || imgArray[ghostPosition[i].x][ghostPosition[i].y].className == 0) {
+                //On wall
+                switch (ghostPosition[i].direction) {
+                    case 1:
+                        ghostPosition[i].x--;
+                        break;
+                    case 2:
+                        ghostPosition[i].x++;
+                        break;
+                    case 3:
+                        ghostPosition[i].y--;
+                        break;
+                    case 4:
+                        ghostPosition[i].y++;
+                        break;
+
+                    default:
+                        break;
+                };
+                ghostPosition[i].direction = Math.round(Math.random() * 3) % 4 + 1;
+
+            };
+
+        };
+    };
 });
