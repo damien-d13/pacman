@@ -51,26 +51,18 @@ originalArray = [
     [0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 ];
-//Clone array
-// var imgArrayClone = new Array;
-function initilisation() {
-    imgArray = new Array;
-    for (const i in originalArray) {
-        imgArray.push([...originalArray[i]]);
-    }
- };
-initilisation();
-//     console.log("clone : " + imgArrayClone)
-
-
 // Initialise information of pacman
-let pacmanPosition = {
+let originalPacmanPosition = new Array;
+
+
+originalPacmanPosition = {
     x: 10,
     y: -1,
     direction: 3
 };
 //initialise information of ghost
-let ghostPosition = [
+let originalGhostPosition = new Array;
+originalGhostPosition = [
     {
         x: 10,
         y: 9,
@@ -92,6 +84,32 @@ let ghostPosition = [
         direction: 2
     }
 ];
+
+//initialisation of map tiles, pacman and ghost Clone array
+function initialisation() {
+    imgArray = new Array;
+    pacmanPosition = new Array;
+    ghostPosition = [];
+    for (let i in originalArray) {
+        imgArray.push([...originalArray[i]]);
+    };
+
+    
+    pacmanPosition = {...originalPacmanPosition};
+
+    for (let j in originalGhostPosition) {
+        console.log("hello");
+       ghostPosition.push({...originalGhostPosition[j]});
+    };
+    console.log( ghostPosition);
+ };
+initialisation();
+
+
+
+
+
+
 var score = 0;
 var candyScore = 0;
 var nbCandy = 0;
@@ -134,8 +152,9 @@ window.addEventListener("load", (event) => {
     calculCandy();
     //Button restart game
 btnRestart.addEventListener("click", () => {
-    initilisation();
+    initialisation();
     displayTray();
+    gameSequence();
 });
     //Event Keyboard
     document.body.addEventListener("keydown", keyPackman);
