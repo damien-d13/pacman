@@ -16,9 +16,9 @@ class Pacman {
 
   displayPacman() {
     this.pacmanImage.src = "img/pacman4.gif";
-    let nbPosition = "" + (this.positionX + 1) + " / " + (this.positionY + 1);
+    let nbPosition = (this.positionX + 1) + " / " + (this.positionY + 1);
     
-    this.pacmanImage.style.gridArea = "" + nbPosition;
+    this.pacmanImage.style.gridArea =  nbPosition;
     
     this.pacmanGame.appendChild(this.pacmanImage);
   }

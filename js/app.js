@@ -167,7 +167,7 @@ window.addEventListener("load", (event) => {
   //Function for add pacman on the tray
   function displayPacman() {
     pacmanImage.style.gridArea =
-      pacmanPosition.x + 1 + " / " + (pacmanPosition.y + 1);
+      (pacmanPosition.x + 1) + " / " + (pacmanPosition.y + 1);
     pacmanGame.appendChild(pacmanImage);
   }
   //make pacman move automaticly to the direction
