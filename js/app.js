@@ -141,12 +141,12 @@ window.addEventListener("load", (event) => {
                     imgArray[i][j].src = "img/bonbon.gif";
                     imgArray[i][j].classList.add("2");
                     pacmanGame.appendChild(imgArray[i][j]);
-                }
+                };
 
 
-            }
+            };
 
-        }
+        };
     };
     displayTray();
     calculCandy();
@@ -221,8 +221,8 @@ btnRestart.addEventListener("click", () => {
 
             default:
                 break;
-        }
-    }
+        };
+    };
     //Test the next tiles for move 
     function wallCollision() {
 
@@ -257,7 +257,7 @@ btnRestart.addEventListener("click", () => {
             imgArray[pacmanPosition.x][pacmanPosition.y].src = "img/sol.gif";
             imgArray[pacmanPosition.x][pacmanPosition.y].classList.add("1");
             candyScore++;
-        }
+        };
     };
     // display the score on the html document
     function displayScore() {
@@ -266,26 +266,26 @@ btnRestart.addEventListener("click", () => {
         if (candyScore == nbCandy) {
             clearInterval(intervalGame);
             alert("Vous avez gagné");
-        }
-    }
-    //Calcul number of candy at the start 
+        };
+    };
+    //Calcul numer of candy at the start 
     function calculCandy() {
         for (let i = 0; i < imgArray.length; i++) {
             for (let j = 0; j < imgArray[i].length; j++) {
                 if (imgArray[i][j].className == 2) {
                     nbCandy++;
-                }
-            }
-        }
-    }
+                };
+            };
+        };
+    };
     function displayGhost() {
         for (let i = 0; i < 4; i++) {
 
             ghostArray[i].style.gridArea = (ghostPosition[i].x + 1) + " / " + (ghostPosition[i].y + 1);
             pacmanGame.appendChild(ghostArray[i]);
 
-        }
-    }
+        };
+    };
     //Make ghost move alone
     function moveGhost() {
 
@@ -308,8 +308,8 @@ btnRestart.addEventListener("click", () => {
                 default:
                     break;
             };
-        }
-    }
+        };
+    };
     // Ghost wall collision 
     function ghostWallCollision() {
 
@@ -348,8 +348,8 @@ btnRestart.addEventListener("click", () => {
             if (ghostPosition[i].x == pacmanPosition.x && ghostPosition[i].y == pacmanPosition.y) {
                 clearInterval(intervalGame);
                 alert("Vous avez perdu");
-            }
-        }
+            };
+        };
     };
     
 });
