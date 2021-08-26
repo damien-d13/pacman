@@ -134,10 +134,10 @@ window.addEventListener("load", (event) => {
           imgArray[i][j].src = "img/bonbon.gif";
           imgArray[i][j].classList.add("2");
           pacmanGame.appendChild(imgArray[i][j]);
-        }
-      }
-    }
-  }
+        };
+      };
+    };
+  };
   displayTray();
   calculCandy();
   //Button restart game
@@ -160,7 +160,7 @@ window.addEventListener("load", (event) => {
     displayScore();
     displayPacman();
     displayGhost();
-  }
+  };
   //Add the interval for initiate the pacman postion and changing element
   var intervalGame = setInterval(gameSequence, 200);
 
@@ -169,7 +169,7 @@ window.addEventListener("load", (event) => {
     pacmanImage.style.gridArea =
       (pacmanPosition.x + 1) + " / " + (pacmanPosition.y + 1);
     pacmanGame.appendChild(pacmanImage);
-  }
+  };
   //make pacman move automaticly to the direction
   function movePacman() {
     switch (pacmanPosition.direction) {
@@ -188,8 +188,8 @@ window.addEventListener("load", (event) => {
 
       default:
         break;
-    }
-  }
+    };
+  };
   //add keyboard keys
   function keyPackman(key) {
     // alert(key.code);
@@ -209,8 +209,8 @@ window.addEventListener("load", (event) => {
 
       default:
         break;
-    }
-  }
+    };
+  };
   //Test the next tiles for move
   function wallCollision() {
     if (
@@ -237,17 +237,17 @@ window.addEventListener("load", (event) => {
 
         default:
           break;
-      }
-    }
-  }
+      };
+    };
+  };
   //Delete candy when pacman is on it
   function eatCandy() {
     if (imgArray[pacmanPosition.x][pacmanPosition.y].className == 2) {
       imgArray[pacmanPosition.x][pacmanPosition.y].src = "img/sol.gif";
       imgArray[pacmanPosition.x][pacmanPosition.y].classList.add("1");
       candyScore++;
-    }
-  }
+    };
+  };
   // display the score on the html document
   function displayScore() {
     pSCore.innerHTML = "Votre score est de : " + candyScore;
@@ -255,25 +255,25 @@ window.addEventListener("load", (event) => {
     if (candyScore == nbCandy) {
       clearInterval(intervalGame);
       alert("Vous avez gagné");
-    }
-  }
+    };
+  };
   //Calcul numer of candy at the start
   function calculCandy() {
     for (let i = 0; i < imgArray.length; i++) {
       for (let j = 0; j < imgArray[i].length; j++) {
         if (imgArray[i][j].className == 2) {
           nbCandy++;
-        }
-      }
-    }
-  }
+        };
+      };
+    };
+  };
   function displayGhost() {
     for (let i = 0; i < 4; i++) {
       ghostArray[i].style.gridArea =
         ghostPosition[i].x + 1 + " / " + (ghostPosition[i].y + 1);
       pacmanGame.appendChild(ghostArray[i]);
-    }
-  }
+    };
+  };
   //Make ghost move alone
   function moveGhost() {
     for (let i = 0; i < ghostPosition.length; i++) {
@@ -293,9 +293,9 @@ window.addEventListener("load", (event) => {
 
         default:
           break;
-      }
-    }
-  }
+      };
+    };
+  };
   // Ghost wall collision
   function ghostWallCollision() {
     for (let i = 0; i < 4; i++) {
@@ -325,9 +325,9 @@ window.addEventListener("load", (event) => {
             break;
         }
         ghostPosition[i].direction = (Math.round(Math.random() * 3) % 4) + 1;
-      }
-    }
-  }
+      };
+    };
+  };
   //Test collision to pacman and ghost
   function pacmanEatByGhost() {
     for (let i = 0; i < 4; i++) {
@@ -337,7 +337,7 @@ window.addEventListener("load", (event) => {
       ) {
         clearInterval(intervalGame);
         alert("Vous avez perdu");
-      }
-    }
-  }
+      };
+    };
+  };
 });
