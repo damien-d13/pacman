@@ -75,7 +75,8 @@ class Pacman {
       imgArray[this.positionX][this.positionY].src = "img/sol.gif";
       imgArray[this.positionX][this.positionY].classList.add("1");
       return this.candyScore++;
-    // console.log(this.candyScore);
+    
     }
+    return this.candyScore;
   }
 }

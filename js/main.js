@@ -52,14 +52,14 @@ window.addEventListener("load", (event) => {
       for (let j = 0; j < gridTiles.imgArray[i].length; j++) {
         if (gridTiles.imgArray[i][j].className == 2) {
           nbCandy++;
-          console.log(nbCandy);
+          
         }
       }
     }
   }
   function displayScore() {
     pacmanScore = pacman.eatCandy(gridTiles.imgArray);
-
+console.log(nbCandy);
     pSCore.innerHTML = "Votre score est de : " + pacmanScore;
     divScore.appendChild(pSCore);
     if (pacmanScore == nbCandy) {
