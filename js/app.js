@@ -19,6 +19,7 @@ ghostArray = [ghostImage1, ghostImage2, ghostImage3, ghostImage4];
 var divScore = document.getElementById("score");
 var pSCore = document.createElement("p");
 
+
 var btnRestart = document.createElement("button");
 btnRestart.innerHTML = "Restart";
 divScore.appendChild(btnRestart);
