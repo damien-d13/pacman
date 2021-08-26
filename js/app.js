@@ -91,16 +91,16 @@ function initialisation() {
   ghostPosition = [];
   for (let i in originalArray) {
     imgArray.push([...originalArray[i]]);
-  }
+  };
 
   pacmanPosition = { ...originalPacmanPosition };
 
   for (let j in originalGhostPosition) {
     console.log("hello");
     ghostPosition.push({ ...originalGhostPosition[j] });
-  }
+  };
   console.log(ghostPosition);
-}
+};
 initialisation();
 
 var score = 0;
