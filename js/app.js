@@ -201,15 +201,19 @@ window.addEventListener("load", (event) => {
     switch (key.code) {
       case "ArrowUp":
         pacmanPosition.direction = 2;
+        pacmanImage.style.transform = "rotate(270deg)";
         break;
       case "ArrowDown":
         pacmanPosition.direction = 1;
+        pacmanImage.style.transform = "rotate(90deg)";
         break;
       case "ArrowLeft":
         pacmanPosition.direction = 4;
+        pacmanImage.style.transform = "rotate(180deg)";
         break;
       case "ArrowRight":
         pacmanPosition.direction = 3;
+        pacmanImage.style.transform = "rotate(360deg)";
         break;
 
       default:

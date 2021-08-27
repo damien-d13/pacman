@@ -50,7 +50,6 @@ class Pacman {
       this.positionY < 0 ||
       imgArray[this.positionX][this.positionY].className == 0
     ) {
-      //On wall
       switch (this.direction) {
         case 1:
           this.positionX--;
