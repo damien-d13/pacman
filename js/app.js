@@ -1,9 +1,20 @@
-console.log("This is PACMAN");
+/** Pacman game full javascript with the use of gridArea
+ * Author : Damien Devoti
+ */
+/** Element HTML */
 var pacmanGame = document.getElementById("pacman");
-
+var divScore = document.getElementById("score");
+//Create element paragraphe for display the score
+var pSCore = document.createElement("p");
+//Create element button for restart the game
+var btnRestart = document.createElement("button");
+btnRestart.innerHTML = "Restart";
+divScore.appendChild(btnRestart);
+/** Add variable image */
+//Add variable image Pacman
 var pacmanImage = new Image();
 pacmanImage.src = "img/pacman4.gif";
-
+//Add variable image Ghost
 var ghostImage1 = new Image();
 ghostImage1.src = "img/fantome_bleu1.gif";
 var ghostImage2 = new Image();
@@ -12,20 +23,13 @@ var ghostImage3 = new Image();
 ghostImage3.src = "img/fantome_vert1.gif";
 var ghostImage4 = new Image();
 ghostImage4.src = "img/fantome_orange1.gif";
-
+//Add ghost image in array
 var ghostArray = new Array();
 ghostArray = [ghostImage1, ghostImage2, ghostImage3, ghostImage4];
 
-var divScore = document.getElementById("score");
-var pSCore = document.createElement("p");
-
-
-var btnRestart = document.createElement("button");
-btnRestart.innerHTML = "Restart";
-divScore.appendChild(btnRestart);
-
-// Table tiles map size 19/22
+/**  Create table tiles map (size : 19/22) */
 var originalArray = new Array();
+//Duplicate the table for not erase the original value
 var imgArray = new Array();
 
 originalArray = [
@@ -54,7 +58,6 @@ originalArray = [
 ];
 // Initialise information of pacman
 let originalPacmanPosition = new Array();
-
 originalPacmanPosition = {
   x: 10,
   y: -1,
@@ -84,7 +87,10 @@ originalGhostPosition = [
     direction: 2,
   },
 ];
-
+//Initialise score information
+var score = 0;
+var candyScore = 0;
+var nbCandy = 0;
 //initialisation of map tiles, pacman and ghost Clone array
 function initialisation() {
   imgArray = new Array();
@@ -92,27 +98,20 @@ function initialisation() {
   ghostPosition = [];
   for (let i in originalArray) {
     imgArray.push([...originalArray[i]]);
-  };
+  }
 
   pacmanPosition = { ...originalPacmanPosition };
 
   for (let j in originalGhostPosition) {
-    console.log("hello");
     ghostPosition.push({ ...originalGhostPosition[j] });
-  };
-  console.log(ghostPosition);
-};
+  }
+}
+/** Start initilisation */
 initialisation();
-
-var score = 0;
-var candyScore = 0;
-var nbCandy = 0;
-
-console.log(imgArray);
-console.log(originalArray);
 
 // Execute the code when the page is already load.
 window.addEventListener("load", (event) => {
+  //Display the tiles maps in the html document
   function displayTray() {
     // Add image to Array cell
     for (let i = 0; i < imgArray.length; i++) {
@@ -135,21 +134,27 @@ window.addEventListener("load", (event) => {
           imgArray[i][j].src = "img/bonbon.gif";
           imgArray[i][j].classList.add("2");
           pacmanGame.appendChild(imgArray[i][j]);
-        };
-      };
-    };
-  };
+        }
+      }
+    }
+  }
+
   displayTray();
   calculCandy();
+
   //Button restart game
   btnRestart.addEventListener("click", () => {
+    //Initialise score information
+    score = 0;
+    candyScore = 0;
     initialisation();
     displayTray();
     gameSequence();
+    intervalGame = setInterval(gameSequence, 200);
   });
   //Event Keyboard
   document.body.addEventListener("keydown", keyPackman);
-  //Call function
+  //Call function in sequence
   function gameSequence() {
     movePacman();
     wallCollision();
@@ -161,16 +166,16 @@ window.addEventListener("load", (event) => {
     displayScore();
     displayPacman();
     displayGhost();
-  };
+  }
   //Add the interval for initiate the pacman postion and changing element
   var intervalGame = setInterval(gameSequence, 200);
 
   //Function for add pacman on the tray
   function displayPacman() {
     pacmanImage.style.gridArea =
-      (pacmanPosition.x + 1) + " / " + (pacmanPosition.y + 1);
+      pacmanPosition.x + 1 + " / " + (pacmanPosition.y + 1);
     pacmanGame.appendChild(pacmanImage);
-  };
+  }
   //make pacman move automaticly to the direction
   function movePacman() {
     switch (pacmanPosition.direction) {
@@ -189,11 +194,10 @@ window.addEventListener("load", (event) => {
 
       default:
         break;
-    };
-  };
+    }
+  }
   //add keyboard keys
   function keyPackman(key) {
-    // alert(key.code);
     switch (key.code) {
       case "ArrowUp":
         pacmanPosition.direction = 2;
@@ -210,8 +214,8 @@ window.addEventListener("load", (event) => {
 
       default:
         break;
-    };
-  };
+    }
+  }
   //Test the next tiles for move
   function wallCollision() {
     if (
@@ -221,7 +225,6 @@ window.addEventListener("load", (event) => {
       pacmanPosition.y < 0 ||
       imgArray[pacmanPosition.x][pacmanPosition.y].className == 0
     ) {
-      //On wall
       switch (pacmanPosition.direction) {
         case 1:
           pacmanPosition.x--;
@@ -238,43 +241,44 @@ window.addEventListener("load", (event) => {
 
         default:
           break;
-      };
-    };
-  };
+      }
+    }
+  }
   //Delete candy when pacman is on it
   function eatCandy() {
     if (imgArray[pacmanPosition.x][pacmanPosition.y].className == 2) {
       imgArray[pacmanPosition.x][pacmanPosition.y].src = "img/sol.gif";
       imgArray[pacmanPosition.x][pacmanPosition.y].classList.add("1");
       candyScore++;
-    };
-  };
-  // display the score on the html document
+    }
+  }
+  //Display the score on the html document
   function displayScore() {
     pSCore.innerHTML = "Votre score est de : " + candyScore;
     divScore.appendChild(pSCore);
     if (candyScore == nbCandy) {
       clearInterval(intervalGame);
       alert("Vous avez gagné");
-    };
-  };
-  //Calcul numer of candy at the start
+    }
+  }
+  //Calcul number of candy at the start
   function calculCandy() {
     for (let i = 0; i < imgArray.length; i++) {
       for (let j = 0; j < imgArray[i].length; j++) {
         if (imgArray[i][j].className == 2) {
           nbCandy++;
-        };
-      };
-    };
-  };
+        }
+      }
+    }
+  }
+  //Display ghost on the HTML document
   function displayGhost() {
     for (let i = 0; i < 4; i++) {
       ghostArray[i].style.gridArea =
         ghostPosition[i].x + 1 + " / " + (ghostPosition[i].y + 1);
       pacmanGame.appendChild(ghostArray[i]);
-    };
-  };
+    }
+  }
   //Make ghost move alone
   function moveGhost() {
     for (let i = 0; i < ghostPosition.length; i++) {
@@ -294,10 +298,10 @@ window.addEventListener("load", (event) => {
 
         default:
           break;
-      };
-    };
-  };
-  // Ghost wall collision
+      }
+    }
+  }
+  //Ghost wall collision
   function ghostWallCollision() {
     for (let i = 0; i < 4; i++) {
       if (
@@ -307,7 +311,6 @@ window.addEventListener("load", (event) => {
         ghostPosition[i].y < 0 ||
         imgArray[ghostPosition[i].x][ghostPosition[i].y].className == 0
       ) {
-        //On wall
         switch (ghostPosition[i].direction) {
           case 1:
             ghostPosition[i].x--;
@@ -325,10 +328,11 @@ window.addEventListener("load", (event) => {
           default:
             break;
         }
+        //Make Ghost change direct when meet wall
         ghostPosition[i].direction = (Math.round(Math.random() * 3) % 4) + 1;
-      };
-    };
-  };
+      }
+    }
+  }
   //Test collision to pacman and ghost
   function pacmanEatByGhost() {
     for (let i = 0; i < 4; i++) {
@@ -338,7 +342,7 @@ window.addEventListener("load", (event) => {
       ) {
         clearInterval(intervalGame);
         alert("Vous avez perdu");
-      };
-    };
-  };
+      }
+    }
+  }
 });

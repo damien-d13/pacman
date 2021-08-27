@@ -88,11 +88,12 @@ window.addEventListener("load", (event) => {
     tabGhost.push(new Ghost(document.getElementById("pacman")));
     tabGhost.push(new Ghost(document.getElementById("pacman")));
     tabGhost.push(new Ghost(document.getElementById("pacman")));
-    nbCandy;
     pacmanScore;
     gridTiles.displayTiles();
     nbCandy = gridTiles.calculCandy();
 
     gameSequence();
+    intervalGame = setInterval(gameSequence, 200);
+
   });
 });
