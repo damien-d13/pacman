@@ -2,23 +2,40 @@
 window.addEventListener("load", (event) => {
   var gridTiles = new GridTiles(document.getElementById("pacman"));
   var pacman = new Pacman(document.getElementById("pacman"));
+  let tabGhost = [];
+  tabGhost.push(new Ghost(document.getElementById("pacman")));
+  tabGhost.push(new Ghost(document.getElementById("pacman")));
+  tabGhost.push(new Ghost(document.getElementById("pacman")));
+  tabGhost.push(new Ghost(document.getElementById("pacman")));
   var divScore = document.getElementById("score");
   var pSCore = document.createElement("p");
-  var nbCandy = 0;
-  var pacmanScore = 0;
+  var nbCandy ;
+  var pacmanScore ;
+  
   gridTiles.displayTiles();
-
-  calculCandy();
+  var nbCandy = gridTiles.calculCandy();
 
   function gameSequence() {
-    pacman.displayPacman();
-
+    
+    displayScore();
     pacman.movePacman();
 
     pacman.wallCollision(gridTiles.imgArray);
 
-    displayScore();
-
+    
+    pacman.displayPacman();
+    for (let index = 0; index <tabGhost.length; index++) {
+     
+    tabGhost[index].moveGhost();
+    tabGhost[index].ghostWallCollision(gridTiles.imgArray);
+    if (tabGhost[index].pacmanEatByGhost(pacman.positionX, pacman.positionY) == true) {
+      clearInterval(intervalGame);
+        alert("Vous avez perdu");
+    }
+    
+    tabGhost[index].displayGhost(index % 4);
+    }
+   
   }
   var intervalGame = setInterval(gameSequence, 200);
 
@@ -47,21 +64,13 @@ window.addEventListener("load", (event) => {
 
   document.body.addEventListener("keydown", keyPackman);
 
-  function calculCandy() {
-    for (let i = 0; i < gridTiles.imgArray.length; i++) {
-      for (let j = 0; j < gridTiles.imgArray[i].length; j++) {
-        if (gridTiles.imgArray[i][j].className == 2) {
-          nbCandy++;
-          
-        }
-      }
-    }
-  }
+  
   function displayScore() {
     pacmanScore = pacman.eatCandy(gridTiles.imgArray);
-console.log(nbCandy);
+
     pSCore.innerHTML = "Votre score est de : " + pacmanScore;
     divScore.appendChild(pSCore);
+    
     if (pacmanScore == nbCandy) {
       clearInterval(intervalGame);
       alert("Vous avez gagné");

@@ -2,6 +2,7 @@ class GridTiles {
   originalArray;
   imgArray;
   pacmanGame;
+  nbCandy;
 
   constructor(pacmanGame) {
     this.originalArray = [
@@ -30,6 +31,7 @@ class GridTiles {
     ];
     this.imgArray = [];
     this.pacmanGame = pacmanGame;
+    this.nbCandy = 0;
   }
 
   //initialisation of map tiles, pacman and ghost Clone array
@@ -70,5 +72,16 @@ class GridTiles {
         }
       }
     }
+  }
+
+  calculCandy() {
+    for (let i = 0; i < this.imgArray.length; i++) {
+      for (let j = 0; j < this.imgArray[i].length; j++) {
+        if (this.imgArray[i][j].className == 2) {
+         this.nbCandy++;
+        }
+      }
+    }
+    return this.nbCandy;
   }
 }
