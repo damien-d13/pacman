@@ -1,4 +1,0 @@
-#pacman {
-    display:grid;
-    grid-template-columns: repeat(19, 40px);
-}

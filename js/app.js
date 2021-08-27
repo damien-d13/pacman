@@ -3,6 +3,8 @@
  */
 /** Element HTML */
 var pacmanGame = document.getElementById("pacman");
+pacmanGame.style.display = "grid";
+pacmanGame.style.gridTemplateColumns = "repeat(19, 40px)";
 var divScore = document.getElementById("score");
 //Create element paragraphe for display the score
 var pSCore = document.createElement("p");

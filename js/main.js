@@ -1,6 +1,9 @@
 // Execute the code when the page is already load.
 window.addEventListener("load", (event) => {
-  var gridTiles = new GridTiles(document.getElementById("pacman"));
+  var pacmanGame = document.getElementById("pacman");
+  var gridTiles = new GridTiles(pacmanGame);
+  pacmanGame.style.display = "grid";
+  pacmanGame.style.gridTemplateColumns = "repeat(19, 40px)";
   var pacman = new Pacman(document.getElementById("pacman"));
   let tabGhost = [];
   tabGhost.push(new Ghost(document.getElementById("pacman")));
