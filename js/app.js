@@ -14,8 +14,45 @@ btnRestart.innerHTML = "Restart";
 divScore.appendChild(btnRestart);
 /** Add variable image */
 //Add variable image Pacman
-var pacmanImage = new Image();
-pacmanImage.src = "img/pacman4.gif";
+// var pacmanImage = new Image();
+// pacmanImage.src = "img/pacman4.gif";
+
+var imgPacman = document.getElementById("img-pacman");
+
+var pacmanImage  = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+var groupeSvg = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+let path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+var animate = document.createElementNS("http://www.w3.org/2000/svg","animate");
+
+pacmanImage.setAttribute("width", "40");
+pacmanImage.setAttribute("height", "40");
+pacmanImage.setAttribute("version", "1.1");
+pacmanImage.setAttribute("viewBox", "0 0 101.6 101.6");
+
+
+groupeSvg.setAttributeNS(null, 'transform', 'translate(-66.716 -94.378)');
+
+
+path.setAttribute("fill", "yellow");
+path.setAttribute("stroke", "#000");
+path.setAttribute("stroke-width", ".697");
+path.setAttribute("d",
+    "m167.38 145.18c0.26499-1e-3 -2e-3 0.5295-6e-3 0.79352-0.42395 27.248-22.645 49.206-49.994 49.206-27.614 0-50-22.386-50-50-2e-6 -27.614 22.386-50 50-50 27.43 0 49.701 21.934 49.997 49.294 2e-3 0.18402-49.527 0.89533-49.343 0.89462z");
+
+    
+    animate.setAttribute('attributeName', 'd');
+    animate.setAttribute('attributeType', 'XML');
+    animate.setAttribute('values', 'm167.38 145.18c0.26499-1e-3 -2e-3 0.5295-6e-3 0.79352-0.42395 27.248-22.645 49.206-49.994 49.206-27.614 0-50-22.386-50-50-2e-6 -27.614 22.386-50 50-50 27.43 0 49.701 21.934 49.997 49.294 2e-3 0.18402-49.527 0.89533-49.343 0.89462z;m163.81 164.57c0.24437 0.10251 0.0584 0.53743-6e-3 0.79352-3.9291 15.632-19.073 29.816-46.422 29.816-27.614 0-50-22.386-50-50-2e-6 -27.614 22.386-50 50-50 27.43 0 37.837 15.764 46.312 29.733 0.0955 0.15734-45.827 20.384-45.657 20.455z;m167.38 145.18c0.26499-1e-3 -2e-3 0.5295-6e-3 0.79352-0.42395 27.248-22.645 49.206-49.994 49.206-27.614 0-50-22.386-50-50-2e-6 -27.614 22.386-50 50-50 27.43 0 49.701 21.934 49.997 49.294 2e-3 0.18402-49.527 0.89533-49.343 0.89462z');
+    animate.setAttribute('dur', '0.5s');
+    animate.setAttribute("repeatCount", 'indefinite')
+    animate.setAttribute('fill', 'freeze');
+
+// imgPacman.appendChild(pacmanImage);
+pacmanImage.appendChild(groupeSvg);
+groupeSvg.appendChild(path);
+path.appendChild(animate);
+
+
 //Add variable image Ghost
 var ghostImage1 = new Image();
 ghostImage1.src = "img/fantome_bleu1.gif";
